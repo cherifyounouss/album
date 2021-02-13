@@ -5,5 +5,6 @@
 http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
     <persistence-unit name="albumManagement">
         <jta-data-source>jdbc/album</jta-data-source>
+        <class>models.Utilisateur</class>
     </persistence-unit>
 </persistence>
