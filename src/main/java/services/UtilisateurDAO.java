@@ -60,6 +60,16 @@ public class UtilisateurDAO {
         return typedQuery.getResultList();
     }
 
+    public Utilisateur authentifier(String email, String password) {
+        Utilisateur utilisateur = recupererUnUtilisateur(email);
+        if (utilisateur == null)
+            return null;
+        if (BCrypt.checkpw(password, utilisateur.getMotDePasse()))
+            return utilisateur;
+        else
+            return null;
+    }
+
     EntityManager getEntityManager() {
         return  em;
     }

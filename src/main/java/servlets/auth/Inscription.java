@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-@WebServlet("/utilisateurs/inscription")
+@WebServlet("/inscription")
 public class Inscription extends HttpServlet {
 
     @EJB
