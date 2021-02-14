@@ -1,12 +1,15 @@
 package servlets.auth;
 
 import exceptions.UserAlreadyExistException;
+import models.Utilisateur;
 import services.UtilisateurDAO;
+import sessions.UtilisateurSession;
 import validation.Rules;
 import validation.Validation;
 import validation.ValidationPair;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +24,9 @@ public class Inscription extends HttpServlet {
 
     @EJB
     UtilisateurDAO service;
+
+    @Inject
+    UtilisateurSession sessionUtilisateur;
 
     private static final String VUE_INSCRIPTION = "/WEB-INF/auth/inscription.jsp";
 
@@ -41,8 +47,9 @@ public class Inscription extends HttpServlet {
                 new ValidationPair(email, Rules.EMAIL_TYPE));
         if (errors.isEmpty()) {
             try {
-                service.creerUtilisateur(nom, prenom, email, motDePasse, false);
+                Utilisateur utilisateur = service.creerUtilisateur(nom, prenom, email, motDePasse, false);
                 destroyValidationAttributes(req);
+                sessionUtilisateur.setUtilisateur(utilisateur);
                 resp.getWriter().println("Ajouté avec succès");
             }
             catch (UserAlreadyExistException e) {

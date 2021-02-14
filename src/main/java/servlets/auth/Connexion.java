@@ -2,8 +2,10 @@ package servlets.auth;
 
 import models.Utilisateur;
 import services.UtilisateurDAO;
+import sessions.UtilisateurSession;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +20,9 @@ public class Connexion extends HttpServlet {
 
     @EJB
     UtilisateurDAO service;
+
+    @Inject
+    UtilisateurSession sessionUtilisateur;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,6 +41,7 @@ public class Connexion extends HttpServlet {
         }
         else {
             resp.getWriter().append("Bienvenue à l'accueil");
+            sessionUtilisateur.setUtilisateur(utilisateur);
             return;
         }
     }
