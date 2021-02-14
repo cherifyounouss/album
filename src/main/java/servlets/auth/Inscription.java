@@ -1,5 +1,6 @@
 package servlets.auth;
 
+import exceptions.UserAlreadyExistException;
 import services.UtilisateurDAO;
 import validation.Rules;
 import validation.Validation;
@@ -39,14 +40,21 @@ public class Inscription extends HttpServlet {
                 new ValidationPair(nom, Rules.ALPHA),
                 new ValidationPair(email, Rules.EMAIL_TYPE));
         if (errors.isEmpty()) {
-            service.creerUtilisateur(nom, prenom, email, motDePasse, false);
-            resp.getWriter().println("Ajouté avec succès");
+            try {
+                service.creerUtilisateur(nom, prenom, email, motDePasse, false);
+                destroyValidationAttributes(req);
+                resp.getWriter().println("Ajouté avec succès");
+            }
+            catch (UserAlreadyExistException e) {
+                setValidationAttributes(req, prenom, nom, email);
+                req.setAttribute("exception", "Cet utilisateur existe déjà");
+                req.getRequestDispatcher(VUE_INSCRIPTION).forward(req, resp);
+            }
+
         }
         else {
             req.setAttribute("errors", errors);
-            req.setAttribute("prenom", prenom);
-            req.setAttribute("nom", nom);
-            req.setAttribute("email", email);
+            setValidationAttributes(req, prenom, nom, email);
             req.getRequestDispatcher(VUE_INSCRIPTION).forward(req, resp);
             return;
         }
@@ -57,5 +65,11 @@ public class Inscription extends HttpServlet {
         req.removeAttribute("prenom");
         req.removeAttribute("nom");
         req.removeAttribute("email");
+    }
+
+    private void setValidationAttributes(HttpServletRequest req, String prenom, String nom, String email) {
+        req.setAttribute("prenom", prenom);
+        req.setAttribute("nom", nom);
+        req.setAttribute("email", email);
     }
 }

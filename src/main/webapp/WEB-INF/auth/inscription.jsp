@@ -34,5 +34,6 @@
             <br />
         </c:forEach>
     </p>
+    <p>${exception}</p>
 </body>
 </html>

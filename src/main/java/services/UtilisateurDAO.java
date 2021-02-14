@@ -1,5 +1,6 @@
 package services;
 
+import exceptions.UserAlreadyExistException;
 import models.Utilisateur;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -14,10 +15,12 @@ public class UtilisateurDAO {
     @PersistenceContext(unitName = "albumManagement")
     protected EntityManager em;
 
-    public Utilisateur creerUtilisateur(String nom, String prenom, String email, String motDePasse, boolean estAdmin) {
+    public Utilisateur creerUtilisateur(String nom, String prenom, String email, String motDePasse, boolean estAdmin) throws UserAlreadyExistException{
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.setNom(nom);
         utilisateur.setPrenom(prenom);
+        if (recupererUnUtilisateur(email) != null)
+            throw new UserAlreadyExistException();
         utilisateur.setEmail(email);
         utilisateur.setMotDePasse(BCrypt.hashpw(motDePasse, BCrypt.gensalt()));
         utilisateur.setEstAdmin(estAdmin);
@@ -36,7 +39,7 @@ public class UtilisateurDAO {
         Utilisateur utilisateur = null;
         if (utilisateurs != null) {
             for (Utilisateur u : utilisateurs) {
-                if (utilisateur.getEmail().equals(email)) {
+                if (u.getEmail().equals(email)) {
                     utilisateur = u;
                     break;
                 }
