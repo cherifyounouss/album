@@ -1,5 +1,7 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +16,9 @@ public class Utilisateur {
     private String motDePasse;
     private boolean estAdmin;
 
+    @ManyToMany(mappedBy = "permissions")
+    private List<Album> albums;
+    
     public Utilisateur(){}
 
     public Integer getId() {
@@ -56,11 +61,21 @@ public class Utilisateur {
         this.motDePasse = motDePasse;
     }
 
-    public boolean isEstAdmin() {
+    public boolean estAdmin() {
         return estAdmin;
     }
 
     public void setEstAdmin(boolean estAdmin) {
         this.estAdmin = estAdmin;
     }
+
+	public List<Album> getAlbums() {
+		return albums;
+	}
+
+	public void setAlbums(List<Album> albums) {
+		this.albums = albums;
+	}
+    
+    
 }
