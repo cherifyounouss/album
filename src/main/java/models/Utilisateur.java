@@ -77,5 +77,4 @@ public class Utilisateur {
 		this.albums = albums;
 	}
     
-    
 }

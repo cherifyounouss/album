@@ -70,6 +70,17 @@ public class UtilisateurDAO {
             return null;
     }
 
+    
+    public List<Utilisateur> recupererUtilisateurParNomEtPrenom(String nom, String prenom) {
+    	
+    	TypedQuery<Utilisateur> typedQuery = getEntityManager().createQuery("SELECT u FROM Utilisateur u"
+    			+ " WHERE u.nom like :nom AND u.prenom like :prenom ", Utilisateur.class)
+    			.setParameter("nom", nom).setParameter("prenom", prenom);
+        
+    	return typedQuery.getResultList();
+    	    	
+    }
+    
     EntityManager getEntityManager() {
         return  em;
     }

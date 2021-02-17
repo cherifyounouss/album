@@ -9,7 +9,11 @@ import java.io.Serializable;
 @SessionScoped
 public class UtilisateurSession implements Serializable {
 
-    private Utilisateur utilisateur;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Utilisateur utilisateur;
 
     public Utilisateur getUtilisateur() {
         return utilisateur;

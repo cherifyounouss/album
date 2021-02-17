@@ -22,7 +22,12 @@ import java.util.List;
 @WebServlet("/inscription")
 public class Inscription extends HttpServlet {
 
-    @EJB
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@EJB
     UtilisateurDAO service;
 
     @Inject

@@ -79,8 +79,18 @@ public class Album{
 		return images;
 	}
 
-	/*SETTERS*/
+	public boolean isEstPublic() {
+		return estPublic;
+	}
+
+	public List<Utilisateur> getPermissions() {
+		return permissions;
+	}
 	
+	
+	
+	/*SETTERS*/
+
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
@@ -105,4 +115,7 @@ public class Album{
 		this.images = images;
 	}
 
+	public void setPermissions(List<Utilisateur> permissions) {
+		this.permissions = permissions;
+	}
 }

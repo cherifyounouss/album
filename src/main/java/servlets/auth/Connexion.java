@@ -16,7 +16,12 @@ import java.io.IOException;
 @WebServlet("/connexion")
 public class Connexion extends HttpServlet {
 
-    private static final String VUE_CONNEXION = "/WEB-INF/auth/connexion.jsp";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private static final String VUE_CONNEXION = "/WEB-INF/auth/connexion.jsp";
 
     @EJB
     UtilisateurDAO service;

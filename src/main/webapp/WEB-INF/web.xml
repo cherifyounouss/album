@@ -10,8 +10,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   	<servlet-name>AlbumHandling</servlet-name>
   	<servlet-class>servlets.AlbumHandling</servlet-class>
   </servlet>
-  <servlet-mapping>
-  	<servlet-name>AlbumHandling</servlet-name>
-  	<url-pattern>/albums</url-pattern>
-  </servlet-mapping>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>Ajax</display-name>
+  	<servlet-name>Ajax</servlet-name>
+  	<servlet-class>servlets.Ajax</servlet-class>
+  </servlet>
 </web-app>
