@@ -118,3 +118,36 @@ function addOrRemove(element){
 
 }
 
+function deleteAlbum(id){
+	
+	var decision = confirm("voulez-vous vraiment vous debarasser de tous ces souvenirs?");
+	
+	if(decision == true){
+	
+		var xhr = new XMLHttpRequest();
+
+		var url = "http://localhost:8080/album/albums/delete";
+
+		xhr.open("POST", url, true);
+	
+		//Send the proper header information along with the request
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	
+		xhr.onreadystatechange = function() { // Call a function when the state changes.
+	
+		    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+	        
+	    
+	    	}
+		
+		}	
+	
+		var parameter = "id=" + id;
+	
+		xhr.send(parameter);	
+	
+	}
+	
+	location.reload(true);
+}
+

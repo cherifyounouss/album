@@ -2,13 +2,13 @@
 
 	<div class="jumbotron">
 
-		<h1 class="text-center">ADD ALBUM TO MY COLLECTION</h1>
+		<h1 class="text-center">EDIT MY ALBUM</h1>
 	
 	</div>
 
 	<div class="card col-md-5 offset-md-3">
 		
-		<div class="card-header text-center">ALBUM CREATION FORM </div>
+		<div class="card-header text-center">ALBUM EDITING</div>
 		
 		<div class="card-body">
 			
@@ -18,7 +18,7 @@
 				
 					<label for="album_name">Album's name</label>
 				
-					<input type="text" name="album_name" class="form-control" required>
+					<input type="text" name="album_name" class="form-control" value="${album.nom}" required>
 						
 				</div>
 		
@@ -26,11 +26,13 @@
 	  
   					<label class="form-check-label mr-5" for="flexSwitchCheckChecked">Private album</label>
 	  
-  					<input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="is_private" onclick="toggleSearchUserForm()">
+  					<input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="is_private" onclick="toggleSearchUserForm()" 
+  					
+  						${album.estPublic == false ? 'checked' : '' }>
 					
 				</div>		
 				
-				<div id="searchGroup" hidden>
+				<div id="searchGroup" ${album.estPublic == false ? '' : 'hidden=""' } >
 				
 					<div class="form-group">
 						
@@ -56,6 +58,24 @@
 					
 						<tbody>
 						
+							<c:if test="${!empty album.permissions }">
+							
+								<c:forEach items="${album.permissions}" var="user">
+								
+									<tr>
+									
+										<td>${user.nom} ${user.prenom}</td>
+
+										<td>${user.email}</td>
+										
+										<td><input type='button' class='btn btn-danger' data-id="${user.id}" value='remove' onclick='addOrRemove(this)'/></td>
+										
+									</tr>
+								
+								</c:forEach>
+							
+							</c:if>
+						
 						</tbody>
 					
 					</table>			
@@ -63,10 +83,14 @@
 				</div>
 				
 				<div>
-					<input type="text" name="authorized_users" id="authorizedUsers" hidden>
+					
+					<input type="number" name="albumId" value="${album.id}" hidden>
+					
+					<input type="text" name="authorized_users" value="${authorized_users_id}" id="authorizedUsers" hidden>
+				
 				</div>
 				
-				<input type="submit" class="btn btn-info col-md-10 offset-md-1 mt-3" value="Add album">
+				<input type="submit" class="btn btn-info col-md-10 offset-md-1 mt-3" value="Update album">
 				
 			</form>
 			

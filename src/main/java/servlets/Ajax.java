@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import models.Utilisateur;
 import services.UtilisateurDAO;
@@ -35,13 +36,19 @@ public class Ajax extends HttpServlet {
 		String firstName = request.getParameter("firstName");
 		
 		List<Utilisateur> users = userDao.recupererUtilisateurParNomEtPrenom(lastName, firstName);
+	
+		//render to json using jackson
 		
-		String result = new Gson().toJson(users);
+		ObjectMapper mapper = new ObjectMapper();
+		
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		
+		String result = mapper.writeValueAsString(users);
 		
 		response.setContentType("text/json");
 		
 	    response.setHeader("Cache-Control", "no-cache");
-		
+			    
 	    response.getWriter().write(result);
 
 	}

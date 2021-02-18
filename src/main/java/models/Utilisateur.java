@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "utilisateurs")
 public class Utilisateur {
@@ -17,6 +19,7 @@ public class Utilisateur {
     private boolean estAdmin;
 
     @ManyToMany(mappedBy = "permissions")
+    @JsonBackReference
     private List<Album> albums;
     
     public Utilisateur(){}

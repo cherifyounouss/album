@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "albums")
 public class Album{
@@ -32,6 +34,7 @@ public class Album{
 	
 	@ManyToOne
 	@JoinColumn(name = "proprietaire")
+	@JsonManagedReference
 	private Utilisateur proprietaire;
 	
 	@OneToMany(mappedBy = "album")
