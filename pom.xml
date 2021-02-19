@@ -79,6 +79,21 @@
 	    <version>2.9.8</version>
 	</dependency>
 
+	 <!--  File upload -->
+	<dependency>
+	  <groupId>commons-fileupload</groupId>
+	  <artifactId>commons-fileupload</artifactId>
+	  <version>1.4</version>
+	</dependency>
+
+	<!-- ImageJ for image processing -->
+
+	<dependency>
+	    <groupId>net.imagej</groupId>
+	    <artifactId>ij</artifactId>
+	    <version>1.51h</version>
+	</dependency>
+
   </dependencies>
 
   <build>

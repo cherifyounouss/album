@@ -1,8 +1,9 @@
 package models;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "images")
@@ -29,7 +32,13 @@ public class Image {
 
 	private int largeur;
 	
+	@Column(name = "dateCreation", insertable = false, updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreation;
+	
+	@Column(name = "dateModification", insertable = false, updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateModification;
 	
 	@ManyToOne
 	@JoinColumn(name = "album")
@@ -74,6 +83,10 @@ public class Image {
 		return dateCreation;
 	}
 
+	public Date getDateModification() {
+		return dateModification;
+	}
+	
 	public Album getAlbum() {
 		return album;
 	}
@@ -99,11 +112,7 @@ public class Image {
 	public void setLargeur(int largeur) {
 		this.largeur = largeur;
 	}
-
-	public void setDateCreation(Date dateCreation) {
-		this.dateCreation = dateCreation;
-	}
-
+	
 	public void setAlbum(Album album) {
 		this.album = album;
 	}

@@ -135,8 +135,6 @@ public class AlbumHandling extends HttpServlet {
 				
 				albumDao.remove(albumId);
 				
-				response.sendRedirect("/album/albums");
-				
 				break;
 				
 			default:

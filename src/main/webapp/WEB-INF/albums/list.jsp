@@ -30,6 +30,8 @@
 							
 								<th>Action</th>
 							
+								<th>Action</th>
+							
 							</thead>
 			
 							<tbody>
@@ -41,6 +43,8 @@
 										<td>${album.nom}</td>
 									
 										<td>${album.estPublic == false ? 'private' : 'public'}</td>
+										
+										<td><a class="btn btn-secondary" href="images/add?album_id=${album.id}"> Feed</a></td>
 										
 										<td><a class="btn btn-success" href="albums/edit?id=${album.id}"> Edit</a></td>
 									

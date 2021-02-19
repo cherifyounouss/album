@@ -1,8 +1,9 @@
 package models;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -26,8 +29,12 @@ public class Album{
 	
 	private String nom;
 	
+	@Column(name = "dateCreation", insertable = false, updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreation;
-	
+
+	@Column(name = "dateModification", insertable = false, updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateModification;
 	
 	private boolean estPublic;

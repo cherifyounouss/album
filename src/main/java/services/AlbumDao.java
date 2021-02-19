@@ -38,19 +38,11 @@ public class AlbumDao{
 		Utilisateur connectedUser = userSession.getUtilisateur();
 		
 		Utilisateur owner = manager.find(Utilisateur.class, connectedUser.getId()); 	
-		
-		long time = System.currentTimeMillis();
-		
-		Date today = new Date(time);
-		
+				
 		Album album = new Album();
 		
 		album.setNom(name);
-			
-		album.setDateCreation(today);
-		
-		album.setDateModification(today);
-		
+					
 		album.setEstPublic(restricted);
 		
 		album.setProprietaire(owner);

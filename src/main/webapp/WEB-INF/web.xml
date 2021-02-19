@@ -17,4 +17,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   	<servlet-name>Ajax</servlet-name>
   	<servlet-class>servlets.Ajax</servlet-class>
   </servlet>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>ImageHandling</display-name>
+  	<servlet-name>ImageHandling</servlet-name>
+  	<servlet-class>servlets.ImageHandling</servlet-class>
+  </servlet>
 </web-app>
