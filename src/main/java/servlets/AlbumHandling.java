@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import models.Album;
 import models.Utilisateur;
 import services.AlbumDao;
+import services.ImageDao;
 import services.UtilisateurDAO;
 import sessions.UtilisateurSession;
 
@@ -36,10 +37,15 @@ public class AlbumHandling extends HttpServlet {
 	@EJB
 	AlbumDao albumDao;
 	
+	@EJB
+	ImageDao imageDao;
+	
 	@Inject
 	UtilisateurSession session;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setAttribute("connectedUserFullName", session.getUtilisateur().getNom() + " " + session.getUtilisateur().getPrenom());
 		
 		String path = request.getServletPath();
 		
@@ -49,15 +55,27 @@ public class AlbumHandling extends HttpServlet {
 			
 				int userId = session.getUtilisateur().getId();
 				
+				// Get albums
+				
 				List<Album> myAlbums = albumDao.getAlbumsOf(userId);
 				
 				List<Album> authorizedAlbums = albumDao.getAuthorizedAlbumsOf(userId);
-								
+				
+				for (Album album : myAlbums) {
+					
+					album.setImages(imageDao.getImagesOf(album.getId()));
+				
+				}
+				
+				//Get images
+				
 				request.setAttribute("title", "Album list");
 				
 				request.setAttribute("myAlbums", myAlbums);
 
 				request.setAttribute("authorizedAlbums", authorizedAlbums);
+				
+				request.setAttribute("pageMainBrand", "ALBUMS COLLECTION");
 				
 				getServletContext().getRequestDispatcher(LIST_ALBUM).forward(request, response);
 				
@@ -70,6 +88,8 @@ public class AlbumHandling extends HttpServlet {
 				request.setAttribute("title", "Album creation");
 				
 				request.setAttribute("users", users);
+				
+				request.setAttribute("pageMainBrand", "ADD A NEW ALBUM TO MY COLLECTION");
 				
 				getServletContext().getRequestDispatcher(ADD_ALBUM_FORM).forward(request, response);
 				
@@ -94,6 +114,8 @@ public class AlbumHandling extends HttpServlet {
 				request.setAttribute("album", album);
 				
 				request.setAttribute("authorized_users_id", authorizedUsersId);
+				
+				request.setAttribute("pageMainBrand", "EDITING MY ALBUM {" + album.getNom() + "}");
 				
 				getServletContext().getRequestDispatcher(EDIT_ALBUM_FORM).forward(request, response);
 				

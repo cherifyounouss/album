@@ -1,11 +1,5 @@
 <%@ include file="./../includes/header.jsp" %>
 
-	<div class="jumbotron">
-
-		<h1 class="text-center">EDIT MY ALBUM</h1>
-	
-	</div>
-
 	<div class="card col-md-5 offset-md-3">
 		
 		<div class="card-header text-center">ALBUM EDITING</div>

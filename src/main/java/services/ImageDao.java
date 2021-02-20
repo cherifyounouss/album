@@ -2,6 +2,7 @@ package services;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,6 +19,9 @@ public class ImageDao{
 	/*Getting entity manager*/
 	@PersistenceContext(name = PUN)
 	protected EntityManager manager;
+	
+	@EJB
+	AlbumDao albumDao;
 	
 	public Image add(String title, String description, int width , int height, List<Tag> tags, Album album) {
 		
@@ -38,6 +42,19 @@ public class ImageDao{
 		manager.persist(image);
 		
 		return image;
+		
+	}
+	
+	
+public List<Image> getImagesOf(int albumId){ /*This method returns all the images of an album*/
+		
+		Album concernedAlbum = albumDao.getAlbumById(albumId);
+		
+		List<Image> albums =  manager.createQuery("SELECT i FROM Image i WHERE i.album= :id", Image.class)
+    		
+							.setParameter("id", concernedAlbum).getResultList();
+		
+		return albums;
 		
 	}
 	

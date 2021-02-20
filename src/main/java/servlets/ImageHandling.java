@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +23,7 @@ import models.Tag;
 import services.AlbumDao;
 import services.ImageDao;
 import services.TagDao;
+import sessions.UtilisateurSession;
 
 @WebServlet({"/images","/images/add","/images/edit","/images/delete"})
 @MultipartConfig(location ="G:\\DIC3\\JEE\\Projet\\Code\\src\\main\\webapp\\storage\\images")
@@ -40,6 +42,9 @@ public class ImageHandling extends HttpServlet {
 		
 	private static final String IJ_UPLOAD_DIR = "G:/DIC3/JEE/Projet/Code/src/main/webapp/storage/images/";
 	
+	@Inject
+	UtilisateurSession session;
+	
 	@EJB
 	AlbumDao albumDao;
 	
@@ -52,6 +57,10 @@ public class ImageHandling extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String path = request.getServletPath();
+		
+		request.setAttribute("connectedUserFullName", session.getUtilisateur().getNom() + " " + session.getUtilisateur().getPrenom());
+		
+		request.setAttribute("pageMainBrand", "ADD IMAGE TO MY ALBUM");
 		
 		switch (path) {
 		
@@ -90,6 +99,14 @@ public class ImageHandling extends HttpServlet {
 			case "/images/add":
 				
 				addImage(request);
+				
+			try {
+				
+				Thread.sleep(2000);
+				
+			} catch (InterruptedException e) {}
+				
+				response.sendRedirect("/album/albums");
 				
 				break;
 		
