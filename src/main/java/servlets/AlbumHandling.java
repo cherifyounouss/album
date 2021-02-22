@@ -1,5 +1,6 @@
 package servlets;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,8 @@ public class AlbumHandling extends HttpServlet {
 
 	private static final String LIST_ALBUM= "/WEB-INF/albums/list.jsp";
 	
+	private static final String UPLOAD_DIR = "G:\\DIC3\\JEE\\Projet\\Code\\src\\main\\webapp\\storage\\images\\";
+	
 	@EJB
 	UtilisateurDAO userDao;
 	
@@ -49,31 +52,35 @@ public class AlbumHandling extends HttpServlet {
 		
 		String path = request.getServletPath();
 		
+		//Init
+		
+		int userId = session.getUtilisateur().getId();
+		
+		// Get albums
+		
+		List<Album> myAlbums = albumDao.getAlbumsOf(userId);
+		
+		List<Album> authorizedAlbums = albumDao.getAuthorizedAlbumsOf(userId);
+		
+		//Get images
+		
+		for (Album album : myAlbums) {
+			
+			album.setImages(imageDao.getImagesOf(album.getId()));
+		
+		}
+
+		//Setting variables
+		
+		request.setAttribute("myAlbums", myAlbums);
+
+		request.setAttribute("authorizedAlbums", authorizedAlbums);
+		
 		switch (path) {
 		
 			case "/albums":
-			
-				int userId = session.getUtilisateur().getId();
-				
-				// Get albums
-				
-				List<Album> myAlbums = albumDao.getAlbumsOf(userId);
-				
-				List<Album> authorizedAlbums = albumDao.getAuthorizedAlbumsOf(userId);
-				
-				for (Album album : myAlbums) {
-					
-					album.setImages(imageDao.getImagesOf(album.getId()));
-				
-				}
-				
-				//Get images
 				
 				request.setAttribute("title", "Album list");
-				
-				request.setAttribute("myAlbums", myAlbums);
-
-				request.setAttribute("authorizedAlbums", authorizedAlbums);
 				
 				request.setAttribute("pageMainBrand", "ALBUMS COLLECTION");
 				
@@ -146,6 +153,12 @@ public class AlbumHandling extends HttpServlet {
 			case "/albums/edit":
 				
 				editAlbum(request);
+				
+				try {
+					
+					Thread.sleep(2000);
+					
+				} catch (InterruptedException e) {}
 				
 				response.sendRedirect("/album/albums");
 				
@@ -234,6 +247,20 @@ public class AlbumHandling extends HttpServlet {
 			
 		}
 		
+		//change directory name
+		
+		Album album = albumDao.getAlbumById(id);
+		
+		if(!album.getNom().equalsIgnoreCase(albumName)) {
+		
+			File sourceDirectory = new File(UPLOAD_DIR + File.separator + album.getNom());
+
+			File destDirectory= new File(UPLOAD_DIR + File.separator + albumName);
+			
+			sourceDirectory.renameTo(destDirectory);
+			
+		}
+				
 		albumDao.update(id, albumName, open,authorizedUsers);
 		
 	}

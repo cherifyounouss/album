@@ -174,8 +174,8 @@
                                 <!-- MIDDLE CONTENT GOES HERE -->
                					     
                					<div class="card">
-               					
-               						<div class="card-header text-center">IMAGE UPLOAD</div>
+		
+									<div class="card-header text-center">IMAGE EDIT</div>
 		
 									<div class="card-body">
 										
@@ -183,9 +183,9 @@
 									
 											<div class="form-group">
 											
-												<label for="picture">Choose an image</label>
+												<input type="number" name="image_id" value="${ image.id}" hidden="true">
 											
-												<input type="file" name="picture" accept=".png, .jpeg, .jpg, .gif " class="form-control" required>
+												<img alt="fetch" width="150px" height="150px" src='<c:url value="/storage/images/${album.nom}/${image.titre}"/>'>
 													
 											</div>
 									
@@ -193,15 +193,15 @@
 											
 												<label for="description">Description</label>
 											
-												<input type="text" name="description" class="form-control" required>
+												<input type="text" name="description" class="form-control" value="${image.description}" required>
 													
 											</div>
 							
 											<div class="form-group">
 											
-												<label for="description">Tags (separated with spaces)</label>
+												<label for="description">Tags (separated with spaces)</label>			
 											
-												<input type="text" name="tags" class="form-control" required>
+												<input type="text" name="tags" class="form-control" value="${tags}" required>
 													
 											</div>
 									
@@ -232,17 +232,11 @@
 
 
 
-
-
-
-
-
-
 <%@ include file="./../includes/header.jsp" %>
 
 	<div class="card col-md-6 offset-md-3">
 		
-		
+
 
 	</div>
 

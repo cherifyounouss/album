@@ -45,6 +45,43 @@ public class ImageDao{
 		
 	}
 	
+	public Image edit(int id, String description, List<Tag> tags) {
+		
+		Image image = manager.find(Image.class, id);
+		
+		image.setDescription(description);
+		
+		image.setTags(tags);
+		
+
+		
+		manager.merge(image);
+		
+		return image;
+	}
+	
+	public void remove(int id) {
+		
+		Image image = manager.find(Image.class, id);
+		
+		manager.remove(image);
+		
+	}
+	
+	public Image getImageById(int id) {
+		
+		return manager.find(Image.class, id);
+				
+	}
+	
+	
+	public List<Tag> getTagsOf(int id){
+		
+		Image concernedImage = getImageById(id);
+		
+		return concernedImage.getTags();
+		
+	}
 	
 public List<Image> getImagesOf(int albumId){ /*This method returns all the images of an album*/
 		

@@ -19,6 +19,7 @@ import javax.servlet.http.Part;
 import ij.IJ;
 import ij.ImagePlus;
 import models.Album;
+import models.Image;
 import models.Tag;
 import services.AlbumDao;
 import services.ImageDao;
@@ -60,7 +61,27 @@ public class ImageHandling extends HttpServlet {
 		
 		request.setAttribute("connectedUserFullName", session.getUtilisateur().getNom() + " " + session.getUtilisateur().getPrenom());
 		
-		request.setAttribute("pageMainBrand", "ADD IMAGE TO MY ALBUM");
+		int userId = session.getUtilisateur().getId();
+				
+		// Get albums
+		
+		List<Album> myAlbums = albumDao.getAlbumsOf(userId);
+		
+		List<Album> authorizedAlbums = albumDao.getAuthorizedAlbumsOf(userId);
+		
+		//Get images
+		
+		for (Album album : myAlbums) {
+			
+			album.setImages(imageDao.getImagesOf(album.getId()));
+		
+		}
+	
+		//Setting variables
+		
+		request.setAttribute("myAlbums", myAlbums);
+	
+		request.setAttribute("authorizedAlbums", authorizedAlbums);
 		
 		switch (path) {
 		
@@ -71,12 +92,44 @@ public class ImageHandling extends HttpServlet {
 				break;
 	
 			case "/images/add":
-			
+	
+				int concernedAlbumId = Integer.parseInt(request.getParameter("album_id"));
+				
+				Album concernedAlbum  = albumDao.getAlbumById(concernedAlbumId); 
+				
+				request.setAttribute("pageMainBrand", "ADD IMAGE TO MY ALBUM {" + concernedAlbum.getNom() + "}");
+				
 				getServletContext().getRequestDispatcher(ADD_IMAGE_FORM).forward(request, response);
 				
 				break;
 
 			case "/images/edit":
+				
+				request.setAttribute("pageMainBrand", "EDIT MY IMAGE");
+				
+				int imageId = Integer.parseInt(request.getParameter("id"));
+				
+				int albumId = Integer.parseInt(request.getParameter("album"));
+				
+				Image image = imageDao.getImageById(imageId);
+				
+				Album album = albumDao.getAlbumById(albumId);
+				
+				List<Tag> tagList = image.getTags();
+				
+				String tags = " ";
+				
+				for (Tag item : tagList) {
+					
+					tags = tags.concat(" " + item.getLibelle());
+				
+				}
+				
+				request.setAttribute("image", image);
+				
+				request.setAttribute("album", album);
+				
+				request.setAttribute("tags", tags);
 				
 				getServletContext().getRequestDispatcher(EDIT_IMAGE_FORM).forward(request, response);
 				
@@ -111,10 +164,38 @@ public class ImageHandling extends HttpServlet {
 				break;
 		
 			case "/images/edit":
+		
+				editImage(request);
+				
+				try {
+					
+					Thread.sleep(2000);
+					
+				} catch (InterruptedException e) {}
+				
+				response.sendRedirect("/album/albums");
 				
 				break;
 				
 			case "/images/delete":
+				
+				int imageId = Integer.parseInt(request.getParameter("id"));
+				
+				int albumId = Integer.parseInt(request.getParameter("albumId"));
+				
+				Album album = albumDao.getAlbumById(albumId);
+				
+				Image image = imageDao.getImageById(imageId);
+				
+				//delete on folder
+				
+				File picture = new File(UPLOAD_DIR + File.separator + album.getNom() + File.separator + image.getTitre());
+				
+				picture.delete();
+				
+				//delete on database
+				
+				imageDao.remove(imageId);
 				
 				break;
 				
@@ -214,6 +295,29 @@ public class ImageHandling extends HttpServlet {
 		int height = image.getHeight();
 		
 		imageDao.add(imageName, description, width, height, tagList, album);
+    }
+    
+    private void editImage(HttpServletRequest request) {
+        
+    	// pick attributes
+		
+    	int imageId = Integer.parseInt(request.getParameter("image_id"));
+    	
+		String description = request.getParameter("description");
+		
+		String tags[] = request.getParameter("tags").split(" ");
+		
+		//Creating tags
+		
+		List<Tag> tagList = new ArrayList<Tag>();
+		
+		for (String tag : tags) {
+			
+			tagList.add(tagDao.addOrGet(tag));
+			
+		}
+				
+		imageDao.edit(imageId, description, tagList);
     }
     
 }

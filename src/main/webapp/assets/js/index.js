@@ -148,6 +148,79 @@ function deleteAlbum(id){
 	
 	}
 	
-	location.reload(true);
+	location.reload();
 }
 
+
+function deleteImage(id,albumId){
+	
+	var decision = confirm("voulez-vous vraiment vous debarasser de cette belle image?");
+	
+	if(decision == true){
+	
+		var xhr = new XMLHttpRequest();
+
+		var url = "http://localhost:8080/album/images/delete";
+
+		xhr.open("POST", url, true);
+	
+		//Send the proper header information along with the request
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	
+		xhr.onreadystatechange = function() { // Call a function when the state changes.
+	
+		    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+	        
+	    
+	    	}
+		
+		}	
+	
+		var parameter = "id=" + id+"&albumId="+albumId;
+	
+		xhr.send(parameter);	
+	
+	}
+	
+	location.reload();
+}
+
+
+function fillModal(albumName, imageTitle,albumId,imageId){
+
+	var modalTitle = document.getElementById("exampleModalLongTitle");
+
+	var modalBody = document.getElementById("picturePlaceOnModal");
+
+	var actionsDiv = document.getElementById("actionsOnImage");
+
+	modalTitleContent = "<button class='btn btn-primary'>"+ albumName +"</button><button class='btn btn-secondary'>"+ imageTitle +"</button> ";
+	
+	modalBodyContent = '<img alt="fetch" src="storage/images/' + albumName + '/' + imageTitle + '">'
+	
+	
+	
+	actionsDivContent = '<a href="images/edit?id='+ imageId +'&album='+albumId+'" class="btn btn-info col-md-6">Edit</a> <input type="button" class="btn btn-danger col-md-6 float-right" onclick="deleteImage('+imageId+', '+ albumId +')" value="delete">'
+	
+	modalTitle.innerHTML = modalTitleContent;
+
+	modalBody.innerHTML = modalBodyContent;
+
+	actionsDiv.innerHTML = actionsDivContent;
+}
+
+function fillPublicPictureModal(albumName, imageTitle,albumId,imageId){
+
+	var modalTitle = document.getElementById("exampleModalLongTitle");
+
+	var modalBody = document.getElementById("picturePlaceOnModal");
+
+	modalTitleContent = "<button class='btn btn-primary'>"+ albumName +"</button><button class='btn btn-secondary'>"+ imageTitle +"</button> ";
+	
+	modalBodyContent = '<img alt="fetch" src="storage/images/' + albumName + '/' + imageTitle + '">'
+	
+	modalTitle.innerHTML = modalTitleContent;
+
+	modalBody.innerHTML = modalBodyContent;
+
+}

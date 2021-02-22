@@ -33,7 +33,7 @@ public class Album{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreation;
 
-	@Column(name = "dateModification", insertable = false, updatable = false)
+	@Column(name = "dateModification", insertable = false, updatable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateModification;
 	
