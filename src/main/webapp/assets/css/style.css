@@ -35,10 +35,24 @@ body {
 font-family: 'Lobster', cursive;
 }
 
+main{
+	font-family: 'Akaya Telivigala', cursive;
+	font-size: 25px;
+}
+
+header{
+	font-family: 'Akaya Telivigala', cursive;
+	font-size: 20px;
+}
+
 a {
   -webkit-transition: 0.4s;
   -o-transition: 0.4s;
   transition: 0.4s;
+}
+
+.jumbotron{
+	font-family: 'Akaya Telivigala', cursive;
 }
 
 a:hover, a:focus {

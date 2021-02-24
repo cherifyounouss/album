@@ -128,5 +128,13 @@ public class AlbumDao{
 		
 	}
 
+	public List<Album> getAllPublicAlbums(){
+		
+		List<Album> albums =  manager.createQuery("SELECT a FROM Album a WHERE a.estPublic=true", Album.class)
+	    		
+							.getResultList();
+		
+		return albums;
+	}
 	
 }

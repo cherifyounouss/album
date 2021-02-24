@@ -24,4 +24,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   	<servlet-name>ImageHandling</servlet-name>
   	<servlet-class>servlets.ImageHandling</servlet-class>
   </servlet>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>Home</display-name>
+  	<servlet-name>Home</servlet-name>
+  	<servlet-class>servlets.Home</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Home</servlet-name>
+  	<url-pattern>/Home</url-pattern>
+  </servlet-mapping>
 </web-app>

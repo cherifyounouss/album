@@ -25,8 +25,9 @@
 	<!-- CSS
 	============================================ -->
     <!-- google fonts -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Akaya+Telivigala&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href='<c:url value ="/assets/css/vendor/bootstrap.min.css"/>'>
     <!-- Icon Font CSS -->
@@ -77,10 +78,10 @@
                                     <li class="active"><a href="/album">home</a></li>
                                  
                                     <li class="msg-trigger"><a class="msg-trigger-btn" href='<c:url value="/albums"/>'>My Albums</a></li>
-                                    
+                                                                        
                                     <li class="notification-trigger">
                                     
-                                    	<a class="msg-trigger-btn" href="#b">Public albums</a>
+                                    	<a class="msg-trigger-btn" href="#">User management</a>
 
                                     </li>
                     
@@ -120,7 +121,7 @@
                     
                             <div class="header-top-search">
                     
-                               <p>Hi, ${connectedUserFullName}</p>
+                               <p>Hi, ${!empty connectedUserFullName ? connectedUserFullName : 'Unknown'}</p>
                     
                             </div>
                     

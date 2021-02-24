@@ -62,6 +62,10 @@ public class AlbumHandling extends HttpServlet {
 		
 		List<Album> authorizedAlbums = albumDao.getAuthorizedAlbumsOf(userId);
 		
+		for (Album item : authorizedAlbums) {
+			System.out.println("\n " + item.getNom());
+		}
+		
 		//Get images
 		
 		for (Album album : myAlbums) {

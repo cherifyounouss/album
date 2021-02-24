@@ -167,7 +167,7 @@
                            
                         <div class="card text-center">
                   
-                  			<div class="card-header">NEW ALBUM FORM</div>
+                  			<div class="card-header">IMAGE EDITION FORM</div>
                   
                             <div class="card-body">                  
 	           	                                    
@@ -175,7 +175,7 @@
                					     
                					<div class="card">
 		
-									<div class="card-header text-center">IMAGE EDIT</div>
+									<div class="card-header text-center">IMAGE TO EDIT:</div>
 		
 									<div class="card-body">
 										
@@ -205,7 +205,7 @@
 													
 											</div>
 									
-											<input type="submit" class="btn btn-info col-md-10 offset-md-1 mt-3" value="Upload picture">
+											<input type="submit" class="btn btn-info col-md-10 offset-md-1 mt-3" value="Update my picture">
 											
 										</form>
 										
