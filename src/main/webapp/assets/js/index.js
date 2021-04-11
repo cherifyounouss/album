@@ -186,7 +186,7 @@ function deleteImage(id,albumId){
 }
 
 
-function fillModal(albumId,albumName,status,albumOwer,imageId, imageTitle,imageWidth, imageHeight){
+function fillModal(albumId,albumName,status,albumOwer,imageId, imageTitle, imageDescription,imageWidth, imageHeight){
 
 	var addInfosField = document.getElementById("additionalInfos");
 
@@ -198,7 +198,7 @@ function fillModal(albumId,albumName,status,albumOwer,imageId, imageTitle,imageW
 
 	var actionsDiv = document.getElementById("actionsOnImage");
 
-	modalTitleContent = "<input type='button' value="+albumName+" class='btn btn-primary' onclick='fillWithAlbumData(\""+albumName+"\","+status+",\""+albumOwer+"\")' ><input type='button' class='btn btn-secondary' onclick='fillWithImageData(\""+imageTitle+"\","+imageWidth+","+imageHeight+")' value="+imageTitle+" >";
+	modalTitleContent = "<input type='button' value="+albumName+" class='btn btn-primary' onclick='fillWithAlbumData(\""+albumName+"\","+status+",\""+albumOwer+"\")' ><input type='button' class='btn btn-secondary' onclick='fillWithImageData(\""+imageDescription+"\","+imageWidth+","+imageHeight+")' value="+imageTitle+" >";
 	
 	modalBodyContent = '<img alt="fetch" src="storage/images/' + albumName + '/' + imageTitle + '">'
 	
@@ -213,17 +213,19 @@ function fillModal(albumId,albumName,status,albumOwer,imageId, imageTitle,imageW
 	actionsDiv.innerHTML = actionsDivContent;
 }
 
-function fillPublicPictureModal(albumName,status,albumOwer, imageTitle,imageWidth, imageHeight){
+function fillPublicPictureModal(albumName,status,albumOwer, imageTitle,imageDescription, imageWidth, imageHeight){
 
 	var addInfosField = document.getElementById("additionalInfos");
-	modalTitleContent = "<input type='button' value="+albumName+" class='btn btn-primary' onclick='fillWithAlbumData(\""+albumName+"\","+status+",\""+albumOwer+"\")' ><input type='button' class='btn btn-secondary' onclick='fillWithImageData(\""+imageTitle+"\","+imageWidth+","+imageHeight+")' value="+imageTitle+" >";
+	
+	modalTitleContent = "<input type='button' value="+albumName+" class='btn btn-primary' onclick='fillWithAlbumData(\""+albumName+"\","+status+",\""+albumOwer+"\")' ><input type='button' class='btn btn-secondary' onclick='fillWithImageData(\""+imageDescription+"\","+imageWidth+","+imageHeight+")' value="+imageTitle+" >";
+	
 	addInfosField.innerHTML = "";
 
 	var modalTitle = document.getElementById("exampleModalLongTitle");
 
 	var modalBody = document.getElementById("picturePlaceOnModal");
 
-	modalTitleContent = "<input type='button' value="+albumName+" class='btn btn-primary' onclick='fillWithAlbumData(\""+albumName+"\","+status+",\""+albumOwer+"\")' ><input type='button' class='btn btn-secondary' onclick='fillWithImageData(\""+imageTitle+"\","+imageWidth+","+imageHeight+")' value="+imageTitle+" >";
+	modalTitleContent = "<input type='button' value="+albumName+" class='btn btn-primary' onclick='fillWithAlbumData(\""+albumName+"\","+status+",\""+albumOwer+"\")' ><input type='button' class='btn btn-secondary' onclick='fillWithImageData(\""+imageDescription+"\","+imageWidth+","+imageHeight+")' value="+imageTitle+" >";
 	
 	modalBodyContent = '<img alt="fetch" src="storage/images/' + albumName + '/' + imageTitle + '">'
 	
@@ -251,7 +253,7 @@ function fillWithImageData(title, width, height){
 
 	var addInfosField = document.getElementById("additionalInfos");
 
-	var content = "Image name : " + title +  "<br>width : " + width + "px<br>height : " +height+"px";
+	var content = "Description: " + title +  "<br>width : " + width + "px<br>height : " +height+"px";
 
 	addInfosField.innerHTML = "<div>"+content+"</div>";
 	

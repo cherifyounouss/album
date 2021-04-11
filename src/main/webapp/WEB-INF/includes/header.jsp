@@ -75,9 +75,9 @@
     
                                 <ul>
                                  
-                                    <li class="active"><a href="/album">home</a></li>
+                                    <li class="active"><a href='<c:url value="/"/>'>home</a></li>
                                  
-                                    <li class="msg-trigger"><a class="msg-trigger-btn" href='<c:url value="/albums"/>'>My Albums</a></li>
+                                    <li><a href='<c:url value="/albums"/>'>My Albums</a></li>
                                                                         
                                     <li class="notification-trigger">
                                     

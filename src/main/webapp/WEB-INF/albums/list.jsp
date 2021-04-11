@@ -191,7 +191,7 @@
 															
 															</c:if>
 								
-															<td onclick="fillModal(${album.id },'${album.nom}','${album.estPublic}','${album.proprietaire.nom}',${image.id },'${image.titre}',${image.largeur },${image.hauteur })">
+															<td onclick="fillModal(${album.id },'${album.nom}','${album.estPublic}','${album.proprietaire.nom}',${image.id },'${image.titre}','${image.description}',${image.largeur },${image.hauteur })">
 	
 																<img alt="fetch" width="100px" height="100px" src="storage/images/${album.nom}/${image.titre}" 
 																
@@ -269,7 +269,7 @@
 															
 															</c:if>
 								
-															<td onclick="fillPublicPictureModal('${authorizedAlbum.nom}','${authorizedAlbum.estPublic}','${authorizedAlbum.proprietaire.nom}','${authorizedImage.titre}',${authorizedImage.largeur },${authorizedImage.hauteur })">
+															<td onclick="fillPublicPictureModal('${authorizedAlbum.nom}','${authorizedAlbum.estPublic}','${authorizedAlbum.proprietaire.nom}','${authorizedImage.titre}','${authorizedImage.description}',${authorizedImage.largeur },${authorizedImage.hauteur })">
 	
 																<img alt="fetch" width="100px" height="100px" src="storage/images/${authorizedAlbum.nom}/${authorizedImage.titre}" 
 																
@@ -340,7 +340,7 @@
       	
       	</div>
       
-      <c:if test="${!empty currentlyConnectedUser }">
+      <c:if test="${!empty connectedUserFullName }">
 		
 			<div id="actionsOnImage" class="col-md-12">
 	      	

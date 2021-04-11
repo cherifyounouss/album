@@ -39,7 +39,7 @@
 															<thead>
 															
 																<th>Name</th>
-																<th>Owner</th>
+																<th>Status</th>
 																<th>Owner</th>
 															
 															</thead>
@@ -128,7 +128,7 @@
 															
 															</c:if>
 								
-															<td onclick="fillModal(${album.id },'${album.nom}','${album.estPublic}','${album.proprietaire.nom}',${image.id },'${image.titre}',${image.largeur },${image.hauteur })">
+															<td onclick="fillModal(${album.id },'${album.nom}','${album.estPublic}','${album.proprietaire.nom}',${image.id },'${image.titre}','${image.description}',${image.largeur },${image.hauteur })">
 	
 																<img alt="fetch" width="100px" height="100px" src="storage/images/${album.nom}/${image.titre}" 
 																
